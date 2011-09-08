@@ -1,0 +1,4 @@
+Usage:
+
+    $ git clone repo
+    $ sh dotfiles/link-dotfiles
