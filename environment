@@ -1,0 +1,163 @@
+# POSIX -*- sh -*-
+
+LS_OPTIONS=
+for lsopt in -F -N -B --color=auto; do
+    ls $lsopt > /dev/null 2>&1 && LS_OPTIONS="$LS_OPTIONS $lsopt"
+done
+
+GREP_OPTIONS=
+for grepopt in --colour=auto; do
+    grep -q $grepopt . /etc/passwd && GREP_OPTIONS="$GREP_OPTIONS $grepopt"
+done
+
+appendifnosuchline () {
+    if [[ -n $1 && -f $2 ]]; then
+        MATCH=$(grep -Fx "$1" "$2")
+        if [ -z $MATCH ]; then
+            echo "$1" >> "$2"
+        fi
+    fi
+}
+
+removepathelem () {
+    PATH=$(echo "$PATH" | sed -e "s,:*$1:,:,g" -e "s,::,:,g")
+}
+
+setpathifdir () {
+    if [ -d "$1" ]; then
+        removepathelem "$1"
+        PATH="$1:$PATH"
+    fi
+}
+
+appendpathifdir () {
+    if [ -d "$1" ]; then
+        removepathelem "$1"
+        PATH="$PATH:$1"
+    fi
+}
+
+is_int () {
+    [ "$1" -eq "$1" ] > /dev/null 2>&1 
+        return $?
+}
+
+is_root() {
+    test ${EUID:?} -eq 0
+}
+
+is_debian () {
+    if [ -f /etc/debian_version ]; then
+        return 0
+    fi
+    return 1
+}
+
+rgrep () {
+    grep -rin "$*" .
+}
+
+date2stamp () {
+    date --utc --date "$1" +%s
+}
+
+stamp2date (){
+    date --utc --date "1970-01-01 $1 sec" "+%Y-%m-%d %T"
+}
+
+rh() { convert -rotate 90 $1 $1; }
+rv() { convert -rotate 270 $1 $1; }
+
+findcommand () {
+    while [ "$#" -ge 1 ]; do
+        P="$PATH"
+        while [ "$P" ]; do 
+            D=${P%%:*}
+            P=${P#*:}
+            if [ "$D" = "$P" ]; then
+                P=
+            fi
+            if [ -z "$D" ]; then
+                D=.
+            fi
+            if [ -x "$D/$1" ]; then
+                echo "$D/$1"
+                return 0
+            fi
+        done
+        shift
+    done
+    return 1
+}
+
+sopcast () {
+    SOPCAST_BINARY=$(findcommand sp-sc sp-sc-auth)
+    SOPCAST_ADDRESS=$1
+    SOPCAST_PORT=8908
+
+    if ( is_int "$2" ) && [ "$2" -gt 0 ]; then
+       SOPCAST_PORT="$2"
+    fi
+
+    if [ -x "$SOPCAST_BINARY" ]; then
+        echo "Listening on http://localhost:$SOPCAST_PORT"
+        $SOPCAST_BINARY $SOPCAST_ADDRESS 3908 $SOPCAST_PORT > /dev/null
+    fi
+}
+
+certdate () {
+    openssl s_client -connect $1:443 </dev/null 2>&0 | openssl x509 -dates -noout
+}
+
+if [ -z "$LANG" ] || [ "$LANG" = "C" ]; then
+    if findcommand locale >/dev/null; then
+        if locale -a | grep -q '^en_US$'; then
+            LANG=en_US
+            LC_MESSAGES=en_US
+            LC_ALL=en_US
+            LANGUAGE=en_US
+        elif locale -a | grep -q '^nb_NO$' ; then
+            LANG=nb_NO
+            LC_MESSAGES=nb_NO
+            LC_ALL=nb_NO
+            LANGUAGE=nb_NO
+        elif locale -a | grep -q '^no_NO$' ; then
+            LANG=no_NO
+            LC_MESSAGES=no_NO
+            LC_ALL=no_NO
+            LANGUAGE=no_NO
+        fi
+    fi
+fi
+
+setpathifdir /usr/local/bin
+setpathifdir $HOME/usr/bin
+setpathifdir $HOME/bin
+appendpathifdir /usr/sbin
+appendpathifdir /sbin
+
+if [ `id -u` = "0" ]; then 
+    setpathifdir /sbin
+    setpathifdir /usr/sbin
+    setpathifdir /usr/local/sbin
+    setpathifdir /local/sbin
+fi
+
+removepathelem "\\."
+
+export HOSTNAME=$(hostname)
+export CVS_RSH=ssh
+export RSYNC_RSH=ssh
+export EDITOR=vim
+export VISUAL=vim
+export SHELL=$(findcommand zsh bash)
+export TZ=CET
+export LESS="-m -R"
+export PILOTRATE=115200
+export PAGER=less
+export DEBEMAIL="tbjornli@gmail.com"
+export DEBFULLNAME="Tom Bjørnli"
+export XTERM=$(findcommand gnome-terminal xterm eterm)
+export GREP_COLOR='00;38;5;226'
+export HISTSIZE=9999999
+export HISTTIMEFORMAT="%h %d %H:%M:%S> "

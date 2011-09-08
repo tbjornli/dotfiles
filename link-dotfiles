@@ -1,0 +1,61 @@
+#! /bin/sh
+
+# Do the solaris dance to get a real shell.
+if [ ! -d ~root ]  ; then
+    if exec /usr/xpg4/bin/sh $0 "$@" ; then
+        echo "No POSIX shell available, call <person responsible>";
+        exit
+    fi
+fi
+
+DOTFILESDIR=$HOME/dotfiles
+MD5SUM=`which md5sum`
+if test -z "$MD5SUM" || ! test -x "$MD5SUM"; then
+    MD5SUM=`which md5`
+fi
+
+if test ! -d $DOTFILESDIR; then
+    echo "$DOTFILESDIR does not exist!  exiting"
+    exit 1
+fi
+
+if test -z "$MD5SUM" || ! test -x "$MD5SUM"; then
+    echo "Cannot find md5sum program"
+    exit 1
+fi
+
+linkdir () {
+    for file in $1/*; do
+        file=`basename $file`
+        if test "$file" = "CVS" || test "$file" = "`basename $0`" || test "$file" = "README" || test "`echo $file | sed 's/^.*\(.\)/\1/'`" = "~"; then
+            continue
+        elif test -d  "$1/$file"; then
+            if test ! -d "$2/$DOT$file"; then
+                mkdir $2/$DOT$file
+            fi
+            local OLDDOT=$DOT
+            local DOT=
+            linkdir $1/$file $2/$OLDDOT$file
+            DOT=$OLDDOT
+            continue
+        elif test ! -f "$1/$file"; then
+            continue
+        fi
+        if test -f $2/$DOT$file; then
+            C_MD5SUM=`$MD5SUM < $2/$DOT$file | awk '{print $1}'`
+            N_MD5SUM=`$MD5SUM < $1/$file | awk '{print $1}'`
+            if test "$C_MD5SUM" = "$N_MD5SUM"; then
+                rm -f $2/$DOT$file
+            else
+                found=0
+                if [ "$found" = "0" ]; then
+                    echo "$2/$DOT$file different from $1/$file, not known ok, and not symlink: skipping"
+                    continue
+                fi
+            fi
+        fi
+        ln -s $1/$file $2/$DOT$file
+    done
+}
+DOT=.
+linkdir $DOTFILESDIR $HOME

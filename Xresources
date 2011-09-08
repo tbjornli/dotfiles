@@ -1,0 +1,17 @@
+nedit*fontList: -*-helvetica-medium-r-normal--10-100-75-75-p-56-iso8859-1
+nedit*background: #a0a0b0
+
+netscape*fontList: -*-helvetica-medium-r-normal--10-100-75-75-p-56-iso8859-1
+xmatrix*tracePhone: 93419224
+xmatrix*trace: true
+
+aterm*loginShell:true
+aterm*background:Black
+aterm*foreground:White
+aterm*transparent:true
+aterm*shading:40
+aterm*scrollBar:false
+aterm*scrollBar_right:false
+
+xterm*background:Black
+xterm*foreground:White

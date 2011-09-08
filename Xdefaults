@@ -1,0 +1,74 @@
+! Parts (C) 1996 By Greg J. Badros <gjb@cs.duke.edu>
+! You may use this file as specified under the GNU General Public License
+
+Xft.rgba: rgb
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! xterm (and friends)
+
+XTerm*highlightSelection:  true
+! Uncomment this to use color for the bold attribute
+! XTerm*VT100*colorBDMode:  on
+! XTerm*VT100*colorBD:  blue
+! Uncomment this to use color for underline attribute
+! XTerm.VT100*colorULMode:  on
+
+XTerm*underLine: on
+XTerm*boldMode: true
+XTerm*veryBoldColors: 12
+
+! Uncomment this to display the scrollbar 
+XTerm*scrollBar:  false
+
+! This resource specifies whether or not to ignore the 'alternate screen'
+! of applications such as vi.  When it is on, these applications will restore
+! the contents of the screen when they are exited to what they were before
+! they were started.  When it is off, the contents of vi will remain on the
+! screen after the program is quit.
+XTerm.VT100.titeInhibit:  true
+
+!
+XTerm*eightBitControl: false
+XTerm*eightBitInput: false
+XTerm*eightBitOutput: false
+
+! Uncomment this to turn off color mode in your xterms
+!XTerm.VT100*colorMode:  off
+XTerm.VT100*dynamicColors:  on
+
+! Number of lines of scrollback to save
+XTerm*saveLines:    1500
+
+XTerm*faceName: Bitstream Vera Serif Mono
+XTerm*faceSize: 9pt
+XTerm*boldFont: Bitstream Vera Serif Mono
+XTerm*loginShell: True
+XTerm*cursorColor: #bbbbbb
+XTerm*foreground: white
+XTerm*background: black
+XTerm*color0: #000000
+XTerm*color1: #a90000
+XTerm*color2: #70aa70
+XTerm*color3: #aa5500
+XTerm*color4: #0000aa
+XTerm*color5: #aa50aa
+XTerm*color6: #00aaaa
+XTerm*color7: #bbbbbb
+XTerm*color8: #848484
+XTerm*color9: #ff8484
+XTerm*color10: #84ff84
+XTerm*color11: #ffff85
+XTerm*color12: #8484ff
+XTerm*color13: #ff84ff
+XTerm*color14: #84ffff
+XTerm*color15: #ffffff
+XTerm*colorBD: #ffffff
+XTerm*colorBL: #ff5050
+XTerm*colorUL: #50aaaa
+XTerm*cutToBeginningOfLine: false
+XTerm*colorAttrMode: false
+XTerm*colorULMode: false
+XTerm*colorBDMode: false
+XTerm*colorMode: true
+XTerm*utf8: 1
+XTerm*reverseWrap: true
