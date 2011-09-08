@@ -3,22 +3,6 @@ Host kebab
     User tomtom
     ServerAliveInterval 5
 
-Host dreambox
-    Hostname 192.168.1.111
-    User root
-
-Host wehavetriedit
-    Hostname wehavetriedit.com
-    User web28385
-
-Host limited
-    Hostname 83.249.33.161
-    User tom
-
-Host planb
-    Hostname tomtom.cust.ipeer.se
-    User tomtom
-
 Host fsdata
     Hostname fsdata.se
     User tomb
@@ -27,3 +11,7 @@ Host fsdata
 Host testkonto
     Hostname u6318415.fsdata.se
     User u6318415
+
+Host dreambox
+    Hostname 192.168.1.111
+    User root
