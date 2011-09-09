@@ -17,6 +17,7 @@ alias ddu="find . -maxdepth 1 -type d -exec du -sh {} \;"
 alias fdu="find . -maxdepth 1 -type f -exec du -sh {} \;"
 alias t="$EDITOR ~/.todo"
 alias todo="cat ~/.todo"
+alias upgrade='sudo apt-get update && sudo apt-get upgrade'
 alias ssh='ssh-add -l > /dev/null 2>&1 || ssh-add -t 10800 ; ssh'
 alias scp='ssh-add -l > /dev/null 2>&1 || ssh-add -t 10800 ; scp'
 alias keyon="ssh-add -t 28800"
