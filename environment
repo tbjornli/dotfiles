@@ -105,6 +105,28 @@ sopcast () {
     fi
 }
 
+pkgbackup () {
+    if [ $# -eq 1 ]; then
+        dpkg --get-selections > $1
+        echo "Output saved to $1."
+    else 
+        echo "  Usage: pkgbackup outputfile"
+    fi
+}
+
+pkgrestore () {
+    if [ $# -ne 1 ]; then
+        echo ":  Usage: pkgrestore inputfile"
+    elif [ ! -f $1 ]; then
+        echo "File ($1) does not exist"
+    else
+        echo "Installing and updating packages found in $1"
+        sudo dpkg --set-selections < $1
+        sudo apt-get -y update
+        sudo apt-get dselect-upgrade
+    fi
+}
+
 certdate () {
     openssl s_client -connect $1:443 </dev/null 2>&0 | openssl x509 -dates -noout
 }
