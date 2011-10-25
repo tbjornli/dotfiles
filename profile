@@ -28,10 +28,11 @@ alias keylist="ssh-add -l"
 alias fsdssh='ssh -L 3390:172.16.1.112:3389 -C fsdata'
 alias fsdssh67='ssh -L 3390:172.16.1.110:3389 -C fsdata'
 alias rdfsd='rdesktop -u tomb -d Office -k no -g 1360x730 -z localhost:3390'
-alias rdfsdock='rdesktop -u tomb -d Office -k no -g 1900x1050 -z localhost:3390'
+alias rdfsdock='rdesktop -u tomb -d Office -k no -g 1900x1020 -z localhost:3390'
 alias rdhome='rdesktop -u administrator -k no -g 1360x730 -z 192.168.1.108:3389'
 alias rdhomeext='rdesktop -u administrator -k no -g 1360x730 -z home.bjornli.com:13389'
 alias safesurf='ssh -D 8080 tomtom@kug.no'
+alias stupid='/home/tomtom/dev/web/sync_stupid.sh'
 #alias screen='byobu'
 
 export LANG="en_US.UTF-8"
