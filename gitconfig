@@ -17,9 +17,9 @@
     new = green bold
     whitespace = red reverse
 [color "status"]
-    added = yellow
-    changed = green
-    untracked = cyan
+    added = green
+    changed = yellow
+    untracked = red
 [core]
     whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
 [alias]
