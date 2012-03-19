@@ -16,7 +16,7 @@ set history=200     " Command line history
 set ignorecase      " Do case insensitive matching
 set incsearch       " Incremental search
 set modeline        " Apply modelines from files
-set nobackup        " Don't keep a backup file
+set backup          " Keep a backup file 
 set nocompatible    " Use Vim defaults instead of 100% vi compatibility
 set noerrorbells    " Evil
 set ruler           " Show the cursor position all the time
