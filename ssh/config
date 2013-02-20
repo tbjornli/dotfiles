@@ -4,7 +4,7 @@ Host kebab
     ServerAliveInterval 5
 
 Host fsdata
-    Hostname fsdata.se
+    Hostname www1.fsdata.se
     User tomb
     ServerAliveInterval 5
 
