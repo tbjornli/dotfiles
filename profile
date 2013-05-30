@@ -11,6 +11,7 @@ alias ls="ls $LS_OPTIONS"
 alias lsd="ls $LS_OPTIONS -d */"
 alias lsl="ls $LS_OPTIONS -l"
 alias lslh="ls $LS_OPTIONS -lh"
+alias grep="grep $GREP_OPTIONS"
 alias vless="/usr/share/vim/vim73/macros/less.sh"
 alias cd..="cd .."
 alias cdc="cd;clear"
@@ -36,6 +37,8 @@ alias rdhome='rdesktop -u administrator -k no -g 1360x730 -z 192.168.1.108:3389'
 alias rdhomeext='rdesktop -u administrator -k no -g 1360x730 -z home.bjornli.com:13389'
 alias safesurf='ssh -D 8080 tomtom@kug.no'
 alias stupid='/home/tomtom/dev/web/sync_stupid.sh'
+alias whatismyip="curl http://ifconfig.me"
+alias whatismyhost="curl http://ifconfig.me/host"
 #alias screen='byobu'
 
 export LANG="en_US.UTF-8"
