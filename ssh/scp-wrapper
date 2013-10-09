@@ -1,0 +1,24 @@
+#!/bin/bash
+
+scp() {
+    TMPDIR=~/tmp
+    case "$(uname -s)" in
+        Linux)
+            tmp_fifo=$(mktemp -u --suffix=._scp_fifo)
+            ;;
+        *)
+            echo 'Unsupported OS'
+            exit
+            ;;
+    esac
+
+    # cleanup first
+    rm ~/tmp/._scp_fifo* 2>/dev/null
+
+    mkfifo "$tmp_fifo" 
+    cat ~/.ssh/config ~/.ssh/config.* >"$tmp_fifo" 2>/dev/null & 
+    /usr/bin/scp -F "$tmp_fifo" "$@"
+    rm "$tmp_fifo"
+}
+
+scp $*
