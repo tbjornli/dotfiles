@@ -7,7 +7,3 @@ Host django
     Hostname 89.221.247.175
     User root
     ServerAliveInterval 5
-
-Host db
-    Hostname 192.168.1.185
-    User root
