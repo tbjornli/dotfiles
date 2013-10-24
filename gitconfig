@@ -40,3 +40,5 @@
 [giggle]
     compact-mode = false
     main-window-maximized = true
+[push]
+	default = simple
