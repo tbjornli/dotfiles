@@ -7,3 +7,9 @@ Host django
     Hostname 89.221.247.175
     User root
     ServerAliveInterval 5
+
+Host home
+    Hostname home.bjornli.com
+    User tomtom
+    Port 10022
+    ServerAliveInterval 5
