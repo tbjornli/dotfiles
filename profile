@@ -40,6 +40,7 @@ alias safesurf='ssh -D 8080 tomtom@kug.no'
 alias stupid='/home/tomtom/dev/web/sync_stupid.sh'
 alias whatismyip="curl http://ifconfig.me"
 alias whatismyhost="curl http://ifconfig.me/host"
+alias knock="/home/tomtom/.knock"
 #alias screen='byobu'
 
 export LANG="en_US.UTF-8"
