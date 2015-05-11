@@ -5,7 +5,7 @@ case "`tty`" in
 esac
 
 # Stop ssh-agent
-if [ ${SSH_AGENT_PID+1} == 1 ]; then
+if [ $(($SSH_AGENT_PID+1)) == 1 ]; then
     ssh-add -D
     ssh-agent -k > /dev/null 2>&1
     unset SSH_AGENT_PID
