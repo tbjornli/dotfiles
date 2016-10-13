@@ -1,22 +1,30 @@
-" Configuration file for vim
-syntax on
+" configuration file for vim
+"execute pathogen#infect()
 
-" Enable file type detection
+" enable file type detection
 filetype on
 filetype plugin on
 filetype indent on
 
-" some defaults for the editor 
+" colors
+syntax on
+set background=dark
+
+" delete all trailing whitespace
+nnoremap <silent> <F3> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
+
+" some defaults for the editor
 set rulerformat=%20(%2*%<%f%=\ %m%r\ %3l\ %c\ %p%%%)
 set autoindent      " Always set autoindenting on
 set autowrite       " Automatically save before commands like :next and :make
-set background=dark " Black power!
 set backspace=indent,eol,start " More powerful backspacing
 set history=200     " Command line history
 set ignorecase      " Do case insensitive matching
 set incsearch       " Incremental search
 set modeline        " Apply modelines from files
-set nobackup        " Keep a backup file 
+set backup          " Keep a backup file
+set backupdir=~/.tmp " ..and keep it out of the way
+set dir=~/.tmp"
 set nocompatible    " Use Vim defaults instead of 100% vi compatibility
 set noerrorbells    " Evil
 set ruler           " Show the cursor position all the time
@@ -27,37 +35,49 @@ set smartcase       " Do case sensitive matching if necessary
 set textwidth=0     " Don't wrap words by default
 set notitle         " no title in terminal
 set ttyfast
+set wildmenu
+set wildmode=longest:list,full
+set hlsearch
+set pastetoggle=<F2>
+set encoding=utf-8
+set laststatus=2
+set nocursorline
+set colorcolumn=80
 
 " read/write a .viminfo file, don't store more than 50 lines of registers
-set viminfo='20,\"50    
+set viminfo='20,\"50
 
 " Spaces > tabs
 set expandtab
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
 set smarttab
-set softtabstop=4   " Makes backspace key treat four spaces like a tab
+set softtabstop=2   " Makes backspace key treat four spaces like a tab
 
 " Suffixes that get lower priority when doing tab completion for filenames.
 set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
 
 " Map some keys to 'functions'
-map <F2> o/**<CR> *<CR>*<CR>* @access <CR>* @return <CR>*/<ESC>kkkk<END>a 
-map <F3> o/**<CR> *<CR>* @var <CR>*/<ESC>kk<END>a 
 map <F4> <ESC>:set nopaste!<CR>
 noremap gfv :vs <cfile><cr>
+
+:function! GetFileType()
+:	let filename = tolower(bufname('%'))
+:	let pos = matchend(filename, '\.') - 1
+:	let len = strlen(filename) - pos
+:	let fileType = strpart(filename, pos, len)
+:	return fileType
+:endfunction
 
 if v:version >= 700
     " Tabs
     map <C-T> :tabnew<CR>
     imap <C-T> <C-O>:tabnew<CR>
-
-    let loaded_matchparen = 1 " disables vim7's paranthesis matching
 else
     " http://vim.sourceforge.net/tips/tip.php?tip_id=173
     set wmh=0      " Minimum window height
     set wmw=0      " Minimum window width
-    map <C-J> <C-W>j<C-W>_ 
+    map <C-J> <C-W>j<C-W>_
     map <C-K> <C-W>k<C-W>_
     nmap <C-H> <C-W>h<C-W><BAR>
     nmap <C-L> <C-W>l<C-W><BAR>
@@ -83,94 +103,42 @@ endif
 " Make <space> in normal mode go down a page rather than left a character
 noremap <space> <C-f>
 
-" Run the test for this file if it exists
-map tr <ESC>:echo Run_test() <CR>
-map to <ESC>:execute Open_test() <CR>
-map fc <ESC>:execute CreateFunction() <CR>
-
-" Lets you create a function quicker
-:function! CreateFunction()
-:	let name = input('Function name')
-:	let line = line('$')
-:	call append(line-1, '/**')
-:	call append(line, ' *')
-:	call append(line+1, ' * @access ')
-:	call append(line+2, ' * @return ')
-:	call append(line+3, ' */')
-:	call append(line+4, 'function ' . name . '() {')
-:	call append(line+5, '')
-:	call append(line+6, '}')
-:	call cursor(line+5, 0)
-:	return 0
-:endfunction
-
-:function! GetFileType()
-:	let filename = tolower(bufname('%'))
-:	let pos = matchend(filename, '\.') - 1
-:	let len = strlen(filename) - pos
-:	let fileType = strpart(filename, pos, len) 
-:	return fileType
-:endfunction
-
-:function! Run_test()
-:   let tfile = 'tests/test_' . tolower(bufname('%'))
-:   let tfile = substitute(tfile, '.lib', '', '')
-:   if filereadable(tfile)
-:       let result = system('php ' . tfile)
-:       return result
-:   else
-:       return 'Test file does not exist, tried to run: ' . tfile
-:endfunction
-
-:function! Open_test()
-:   let tfile = 'tests/test_' . tolower(bufname('%'))
-:   let tfile = substitute(tfile, '.lib', '', '')
-:   execute ':vsplit ' . tfile
-:   redraw
-:   if filereadable(tfile)
-:       return 'echo "Opened test file: ' . tfile . '"'
-:   else
-:       return 'echo "Test file did not exist, created it"'
-:endfunction
-
 " Use default templates based on filename
 let filetype = GetFileType()
 let template = ''
-let templateDir = '~/dotfiles/vim/templates/'
+let templateDir = '~/.vim/templates/'
 if filetype == '.php'
     let template = 'php'
-elseif filetype == '.html'
-    let template = 'xhtml_1_0_strict'
+elseif filetype == '.sh'
+    let template = 'bash'
 endif
 
 " Use template to build file
 if template != ''
     let template = templateDir . template
-    if filereadable(template)
-		au BufNewFile * execute ':0r ' . template
+    au BufNewFile * execute ':0r ' . template
 
-		" Remove last line if its empty
-		if getline(line('$')) == ''
-			au BufNewFile * execute ':' . line('$') . 'delete 1'
-		endif
+    " Remove last line if its empty
+    if getline(line('$')) == ''
+        au BufNewFile * execute ':' . line('$') . 'delete 1'
+    endif
 
-		" Insert author automatically
-		let author = system('finger ' . $USER . ' | grep Name | sed s/.*Name:\ //')
-		let len = strlen(author)
-		let author = strpart(author,0,len-1)
-        if author != ''
-            au BufNewFile * silent! execute ':%s/<vi-tpl-author>/' . author . '/g'
-        endif
+    " Insert author automatically
+    let author = system('finger ' . $USER . ' | grep Name | sed "s/.*Name:\ //"')
+    let len = strlen(author)
+    let author = strpart(author,0,len-1)
+    if author != ''
+        au BufNewFile * silent! execute ':%s/<vi-tpl-author>/' . author . '/g'
+    endif
 
-		" Insert time automagicaly
-		let time = strftime('%Y-%m-%d')
-		au BufNewFile * silent! execute ':%s/<vi-tpl-time>/' . time . '/g'
+    " Insert time automagically
+    let time = strftime('%Y-%m-%d')
+    au BufNewFile * silent! execute ':%s/<vi-tpl-time>/' . time . '/g'
 
-        " Insert tab-settings automagically
-        let tabsettings = system('cat ~/dotfiles/vim/templates/tabsettings')
-        let tabsettings = substitute(tabsettings, '\n', '\r', 'g')
-		au BufNewFile * silent! execute ':%s/<vi-tpl-tabsettings>\n/' . tabsettings . '/g'
-	endif
+    " Insert tab-settings automagically
+    let tabsettings = system('cat ~/.vim/templates/tabsettings')
+    let tabsettings = substitute(tabsettings, '\n', '\r', 'g')
+    au BufNewFile * silent! execute ':%s/<vi-tpl-tabsettings>\n/' . tabsettings . '/g'
 endif
 
 " Make p in Visual mode replace the selected text with the "" register.
@@ -191,7 +159,21 @@ au BufNewFile,BufRead grub.conf set filetype=grub
 if ($TERM == "rxvt-unicode") && (&termencoding == "")
     set termencoding=utf-8
 endif
-set encoding=utf-8
+
+" auto-fix annoying typos
+iab teh the
+command W w
+command Q q
+
+" tip from http://vim.wikia.com/wiki/Highlight_unwanted_spaces
+highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
+
+cmap w!! %!sudo tee > /dev/null %
 
 " Set up the status line
 fun! <SID>SetStatusLine()
@@ -201,8 +183,4 @@ fun! <SID>SetStatusLine()
     execute "set statusline=" . l:s1 . l:s2 . l:s3
 endfun
 
-set laststatus=2
 call <SID>SetStatusLine()
-
-" blah..
-iab teh the
