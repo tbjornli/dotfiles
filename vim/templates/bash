@@ -1,8 +1,10 @@
 #!/bin/bash
 #
-# title         : basename
+# title         : <vi-tpl-name>
 # description   : Description goes here
-# author        : Tom Bjørnli
-# date          : 13102016
+# author        : <vi-tpl-author>
+# date          : <vi-tpl-time>
 # version       : 0.1
-# usage         : ./basename
+# usage         : ./<vi-tpl-name>
+
+

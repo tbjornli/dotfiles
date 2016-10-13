@@ -54,6 +54,9 @@ set shiftwidth=2
 set smarttab
 set softtabstop=2   " Makes backspace key treat four spaces like a tab
 
+" for php files, 4 spaces
+autocmd Filetype php setlocal ts=4 sw=4 sts=4 expandtab
+
 " Suffixes that get lower priority when doing tab completion for filenames.
 set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
 
@@ -123,6 +126,10 @@ if template != ''
         au BufNewFile * execute ':' . line('$') . 'delete 1'
     endif
 
+    " Insert script name automagically
+    let name = 'myscript'
+    au BufNewFile * silent! execute ':%s/<vi-tpl-name>/' . name . '/g'
+
     " Insert author automatically
     let author = system('finger ' . $USER . ' | grep Name | sed "s/.*Name:\ //"')
     let len = strlen(author)
@@ -132,7 +139,7 @@ if template != ''
     endif
 
     " Insert time automagically
-    let time = strftime('%Y-%m-%d')
+    let time = strftime('%d\/%m\/%Y')
     au BufNewFile * silent! execute ':%s/<vi-tpl-time>/' . time . '/g'
 
     " Insert tab-settings automagically
