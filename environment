@@ -1,7 +1,11 @@
 # POSIX -*- sh -*-
 
 LS_OPTIONS=
-for lsopt in -F -N -B --color=auto; do
+for lsopt in -F; do
+    case $(uname) in
+      'Linux')   lsopt+=' -N -B --color=auto' ;;
+      'Darwin')  lsopt+=' -G' ;;
+		esac
     ls $lsopt > /dev/null 2>&1 && LS_OPTIONS="$LS_OPTIONS $lsopt"
 done
 
@@ -58,11 +62,17 @@ rgrep () {
 }
 
 date2stamp () {
-    date --utc --date "$1" +%s
+    case $(uname) in
+      'Linux')   date --utc --date "$1" +%s ;;
+      'Darwin')  date -u -j -f "%Y-%m-%d %T" "$1 00:00:00" +%s ;;
+		esac
 }
 
 stamp2date (){
-    date --utc --date "1970-01-01 $1 sec" "+%Y-%m-%d %T"
+    case $(uname) in
+      'Linux')   date --utc --date "1970-01-01 $1 sec" "+%Y-%m-%d %T" ;;
+      'Darwin')  date -u -j -r "$1" "+%Y-%m-%d %T" ;;
+		esac
 }
 
 rh() { convert -rotate 90 $1 $1; }
@@ -102,28 +112,6 @@ sopcast () {
     if [ -x "$SOPCAST_BINARY" ]; then
         echo "Listening on http://localhost:$SOPCAST_PORT"
         $SOPCAST_BINARY $SOPCAST_ADDRESS 3908 $SOPCAST_PORT > /dev/null
-    fi
-}
-
-pkgbackup () {
-    if [ $# -eq 1 ]; then
-        dpkg --get-selections > $1
-        echo "Output saved to $1."
-    else 
-        echo "  Usage: pkgbackup outputfile"
-    fi
-}
-
-pkgrestore () {
-    if [ $# -ne 1 ]; then
-        echo ":  Usage: pkgrestore inputfile"
-    elif [ ! -f $1 ]; then
-        echo "File ($1) does not exist"
-    else
-        echo "Installing and updating packages found in $1"
-        sudo dpkg --set-selections < $1
-        sudo apt-get -y update
-        sudo apt-get dselect-upgrade
     fi
 }
 
