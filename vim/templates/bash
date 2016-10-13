@@ -1,0 +1,8 @@
+#!/bin/bash
+#
+# title         : basename
+# description   : Description goes here
+# author        : Tom Bjørnli
+# date          : 13102016
+# version       : 0.1
+# usage         : ./basename
