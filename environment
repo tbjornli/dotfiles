@@ -75,6 +75,13 @@ stamp2date (){
 		esac
 }
 
+keyoff () {
+    case $(uname) in
+      'Linux')   ssh-add -D ;;
+      'Darwin')  ssh-add -K -d ;;
+		esac
+}
+
 rh() { convert -rotate 90 $1 $1; }
 rv() { convert -rotate 270 $1 $1; }
 
