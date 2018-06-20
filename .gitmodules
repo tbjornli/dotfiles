@@ -1,3 +1,6 @@
 [submodule "vim/bundle/syntastic"]
 	path = vim/bundle/syntastic
 	url = https://github.com/vim-syntastic/syntastic
+[submodule "config/base16-shell"]
+	path = config/base16-shell
+	url = git@github.com:chriskempson/base16-shell.git

@@ -26,7 +26,11 @@ case $TERM in
     linux|*screen*|*xterm*|ansi|linux-lat|*Eterm*)
         export PS1="${ATTR_USERNAME}\u${ATTR_OFF}@${ATTR_BOLD}\h${ATTR_OFF}${CHROOT} \w${ATTR_GIT}\$(parse_git_branch)${ATTR_OFF} \\\$${ATTR_OFF} "
         export PS2="${ATTR_BOLD}>${ATTR_AV}";;
-    *) 
+    *)
         export PS1="\u@\h${CHROOT}:\w\$ "
         export PS2=">$";;
 esac
+
+# Base16 Shell
+BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-brewer.sh"
+[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
