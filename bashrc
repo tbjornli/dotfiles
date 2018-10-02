@@ -33,4 +33,5 @@ esac
 
 # Base16 Shell
 BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-brewer.sh"
-[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
+# shellcheck source=/dev/null
+[[ "$-" == *i* ]] && [[ -s "$BASE16_SHELL" ]] && source "$BASE16_SHELL"
