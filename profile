@@ -4,6 +4,7 @@ umask 022
 
 [ -f "$SSH_CLIENT" ] && . $HOME/.ssh-agent
 
+alias open="xdg-open"
 alias rsync="rsync --progress"
 alias scpresume="rsync --partial --rsh=ssh"
 alias vi="vim"
