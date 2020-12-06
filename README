@@ -1,4 +1,7 @@
 Usage:
 
-    $ git clone repo
-    $ sh dotfiles/link-dotfiles
+    $ git clone <url> dotfiles
+    $ cd dotfiles
+    $ git submodule init
+    $ git submodule update
+    $ sh link-dotfiles
