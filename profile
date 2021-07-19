@@ -28,6 +28,7 @@ alias keyon="ssh-add -t 28800"
 alias keyoff="keyoff"
 alias keylist="ssh-add -l"
 alias safesurf='ssh -D 8080 tomtom@kug.no -p 10022'
+alias sudo='sudo -E'
 alias whatismyip="curl http://ifconfig.me"
 alias whatismyip4="curl http://ipv4.icanhazip.com"
 alias whatismyip6="curl http://ipv6.icanhazip.com"
