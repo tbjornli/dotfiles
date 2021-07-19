@@ -32,6 +32,8 @@ alias whatismyip="curl http://ifconfig.me"
 alias whatismyip4="curl http://ipv4.icanhazip.com"
 alias whatismyip6="curl http://ipv6.icanhazip.com"
 alias whatismyhost="curl http://ifconfig.me/host"
+alias babyfixmyfrontend="cd ~/contadev/front-end && npm run elm:clean:stuff && npm run update && npm run dev:bundle && npm run dev:bundle:guest"
+alias json_pretty="python3 -m json.tool"
 
 export LANG="en_US.UTF-8"
 export LANGUAGE="en"
