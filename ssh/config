@@ -1,12 +1,7 @@
 Include ~/.ssh/config.*
 
 Host kebab
-    Hostname kebab-usergroup.com
+    Hostname kug.no
     User tomtom
     Port 10022
-    ServerAliveInterval 5
-
-Host django
-    Hostname 89.221.247.175
-    User root
     ServerAliveInterval 5
