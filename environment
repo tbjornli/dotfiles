@@ -148,11 +148,11 @@ if [ -z "$LANG" ] || [ "$LANG" = "C" ]; then
 fi
 
 setpathifdir /usr/local/bin
-setpathifdir /usr/local/sbin
 setpathifdir $HOME/usr/bin
 setpathifdir $HOME/bin
 appendpathifdir /usr/sbin
 appendpathifdir /sbin
+appendpathifdir /usr/local/sbin
 
 if [ `id -u` = "0" ]; then 
     setpathifdir /sbin
