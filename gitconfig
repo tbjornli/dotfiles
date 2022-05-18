@@ -36,6 +36,7 @@
     lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
     ls = ls-files
     fp = fetch -p
+    cloneasconta = clone -c 'user.email=Tom Bjørnli <tom@conta.no>'
 
     # Show files ignored by git:
     ign = ls-files -o -i --exclude-standard
