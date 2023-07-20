@@ -200,3 +200,4 @@ fun! <SID>SetStatusLine()
 endfun
 
 call <SID>SetStatusLine()
+source ~/.vim/indent/apachestyle.vim
