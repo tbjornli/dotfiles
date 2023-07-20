@@ -150,6 +150,7 @@ fi
 setpathifdir /usr/local/bin
 setpathifdir $HOME/usr/bin
 setpathifdir $HOME/bin
+setpathifdir $HOME/.local/bin
 appendpathifdir /usr/sbin
 appendpathifdir /sbin
 appendpathifdir /usr/local/sbin
@@ -176,6 +177,6 @@ export PAGER=$(findcommand most less)
 export DEBEMAIL="tbjornli@gmail.com"
 export DEBFULLNAME="Tom Bjørnli"
 export XTERM=$(findcommand gnome-terminal xterm eterm)
-export GREP_COLOR='00;38;5;226'
+export GREP_COLOR='mt=00;38;5;226'
 export HISTSIZE=9999999
 export HISTTIMEFORMAT="%h %d %H:%M:%S> "
