@@ -1,23 +1,21 @@
 " configuration file for vim
 execute pathogen#infect()
 
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" some plugins are easier to install via vim-plug
+call plug#begin()
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+call plug#end()
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-" enable file type detection
-filetype on
-filetype plugin on
-filetype indent on
-
-" colors
+" colors & colorscheme for lightline
 syntax on
 set background=dark
+let g:lightline = {
+      \ 'colorscheme': 'PaperColor',
+      \ }
+
+" enable file type detection
+filetype plugin indent on
 
 " delete all trailing whitespace
 nnoremap <silent> <F3> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
@@ -36,6 +34,7 @@ set backupdir=~/.tmp " ..and keep it out of the way
 set dir=~/.tmp"
 set nocompatible    " Use Vim defaults instead of 100% vi compatibility
 set noerrorbells    " Evil
+set noshowmode      " Hide insert status (provided by lightline)
 set ruler           " Show the cursor position all the time
 set scrolloff=2     " 2 lines of context at all times
 set showcmd         " Show (partial) command in status line.
@@ -72,6 +71,10 @@ set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.i
 " Map some keys to 'functions'
 map <F4> <ESC>:set nopaste!<CR>
 noremap gfv :vs <cfile><cr>
+
+" open nerdtree by using Alt+1
+execute "set <M-1>=\e1"
+nnoremap <M-1> :NERDTreeToggle<CR>
 
 :function! GetFileType()
 :	let filename = tolower(bufname('%'))
