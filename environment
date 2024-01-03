@@ -169,7 +169,6 @@ export CVS_RSH=ssh
 export RSYNC_RSH=ssh
 export EDITOR=vim
 export VISUAL=vim
-export TZ='Europe/Oslo'
 export SHELL=$(findcommand bash zsh)
 export LESS="-m -R"
 export PILOTRATE=115200
