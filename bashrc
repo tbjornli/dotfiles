@@ -5,6 +5,8 @@
 [ -f /etc/bash_completion ] && . /etc/bash_completion
 [ -f "$HOME/.environment" ] && . $HOME/.environment
 [ -f "$HOME/.profile" ] && . $HOME/.profile
+[ -f "$HOME/.config/fzf/completion.bash" ] && . $HOME/.config/fzf/completion.bash
+[ -f "$HOME/.config/fzf/key-bindings.bash" ] && . $HOME/.config/fzf/key-bindings.bash
 
 shopt -s histappend
 shopt -s checkwinsize
