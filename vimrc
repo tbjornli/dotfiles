@@ -5,6 +5,7 @@ execute pathogen#infect()
 call plug#begin()
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'airblade/vim-rooter'
 call plug#end()
 
 " colors & colorscheme for lightline
