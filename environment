@@ -164,18 +164,30 @@ fi
 
 removepathelem "\\."
 
-export HOSTNAME=$(hostname)
 export CVS_RSH=ssh
-export RSYNC_RSH=ssh
-export EDITOR=vim
-export VISUAL=vim
-export SHELL=$(findcommand bash zsh)
-export LESS="-m -R"
-export PILOTRATE=115200
-export PAGER=$(findcommand most less)
 export DEBEMAIL="tbjornli@gmail.com"
 export DEBFULLNAME="Tom Bjørnli"
-export XTERM=$(findcommand gnome-terminal xterm eterm)
+export EDITOR=vim
 export GREP_COLOR='mt=00;38;5;226'
+export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
+export FZF_CTRL_R_OPTS="
+  --preview 'echo {}' --preview-window up:3:hidden:wrap
+  --bind 'ctrl-/:toggle-preview'
+  --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
+  --color header:italic
+  --header 'Press CTRL-Y to copy command into clipboard'"
+export FZF_CTRL_T_OPTS="
+  --preview '/usr/bin/batcat -n --color=always {}'
+  --bind 'ctrl-/:change-preview-window(down|hidden|)'"
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden'
+export FZF_TMUX_OPTS='-p80%,60%'
 export HISTSIZE=9999999
 export HISTTIMEFORMAT="%h %d %H:%M:%S> "
+export HOSTNAME=$(hostname)
+export LESS="-m -R"
+export PAGER=$(findcommand most less)
+export PILOTRATE=115200
+export RSYNC_RSH=ssh
+export SHELL=$(findcommand bash zsh)
+export VISUAL=vim
+export XTERM=$(findcommand gnome-terminal xterm eterm)
