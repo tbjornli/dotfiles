@@ -168,7 +168,7 @@ export CVS_RSH=ssh
 export DEBEMAIL="tbjornli@gmail.com"
 export DEBFULLNAME="Tom Bjørnli"
 export EDITOR=vim
-export GREP_COLOR='mt=00;38;5;226'
+export GREP_COLORS='mt=00;38;5;226'
 export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
 export FZF_CTRL_R_OPTS="
   --preview 'echo {}' --preview-window up:3:hidden:wrap
