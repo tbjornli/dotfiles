@@ -3,6 +3,7 @@
 Install necessary packages
 
 ```
+mkdir ~/.tmp
 apt install bat fzf ripgrep silversearcher-ag
 ```
 
