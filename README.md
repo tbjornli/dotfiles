@@ -39,3 +39,9 @@ chmod +x ~/.local/bin/move-to-next-monitor
 
   Binding: **Ctrl-Shift-Alt-N**
   Command: **move-to-next-monitor**
+
+* Background
+```
+cd dotfiles
+cp nightking.png /usr/share/xfce4/backdrops/
+```
