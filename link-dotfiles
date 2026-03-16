@@ -20,7 +20,7 @@ fi
 # Paths below are relative to the dotfiles root.
 # Add paths here when you add DE-specific configs to the repo.
 XFCE_ONLY="config/xfce4 config/redshift.conf Xclients Xclients-default xsession"
-KDE_ONLY="config/kwinrc config/kglobalshortcutsrc config/kdeglobals"
+KDE_ONLY="config/kwinrc config/kglobalshortcutsrc config/kdeglobals config/dolphinrc"
 
 detect_de() {
     de=`echo "${XDG_CURRENT_DESKTOP:-}" | tr '[:upper:]' '[:lower:]'`
