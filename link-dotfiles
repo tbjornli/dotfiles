@@ -1,12 +1,4 @@
-#! /bin/sh
-
-# Do the solaris dance to get a real shell.
-if [ ! -d ~root ]  ; then
-    if exec /usr/xpg4/bin/sh $0 "$@" ; then
-        echo "No POSIX shell available, call <person responsible>";
-        exit
-    fi
-fi
+#!/bin/sh
 
 DOTFILESDIR=$HOME/dotfiles
 MD5SUM=`which md5sum`
@@ -24,18 +16,78 @@ if test -z "$MD5SUM" || ! test -x "$MD5SUM"; then
     exit 1
 fi
 
+# --- Desktop environment detection ---
+# Paths below are relative to the dotfiles root.
+# Add paths here when you add DE-specific configs to the repo.
+XFCE_ONLY="config/xfce4 config/redshift.conf Xclients Xclients-default xsession"
+KDE_ONLY="config/kwinrc config/kglobalshortcutsrc config/kdeglobals"
+
+detect_de() {
+    de=`echo "${XDG_CURRENT_DESKTOP:-}" | tr '[:upper:]' '[:lower:]'`
+    case "$de" in
+        *kde*)   echo "kde"   ;;
+        *xfce*)  echo "xfce"  ;;
+        *gnome*) echo "gnome" ;;
+        *)       echo "unknown" ;;
+    esac
+}
+
+# Parse optional --de=<name> override (useful during initial setup before login)
+DE_OVERRIDE=""
+for arg in "$@"; do
+    case "$arg" in
+        --de=*) DE_OVERRIDE="${arg#--de=}" ;;
+    esac
+done
+
+if test -n "$DE_OVERRIDE"; then
+    DE="$DE_OVERRIDE"
+    echo "Desktop environment: $DE (forced)"
+else
+    DE=`detect_de`
+    echo "Desktop environment: $DE (detected)"
+fi
+
+case "$DE" in
+    kde)  SKIP_LIST="$XFCE_ONLY" ;;
+    xfce) SKIP_LIST="$KDE_ONLY"  ;;
+    all)  SKIP_LIST=""            ;;
+    *)    SKIP_LIST=""            ;;
+esac
+
+should_skip() {
+    # $1 = path relative to dotfiles root
+    for skip in $SKIP_LIST; do
+        case "$1" in
+            "$skip"|"$skip/"*) return 0 ;;
+        esac
+    done
+    return 1
+}
+
+# --- Linking ---
+# linkdir <srcdir> <dstdir> <relbase>
+#   relbase: path of srcdir relative to DOTFILESDIR, used for skip checks
 linkdir () {
     for file in $1/*; do
         file=`basename $file`
         if test "$file" = "CVS" || test "$file" = "`basename $0`" || test "$file" = "README" || test "`echo $file | sed 's/^.*\(.\)/\1/'`" = "~"; then
             continue
-        elif test -d  "$1/$file"; then
+        fi
+
+        relpath="${3:+$3/}$file"
+        if should_skip "$relpath"; then
+            echo "Skipping $relpath (not applicable for $DE)"
+            continue
+        fi
+
+        if test -d  "$1/$file"; then
             if test ! -d "$2/$DOT$file"; then
                 mkdir $2/$DOT$file
             fi
             local OLDDOT=$DOT
             local DOT=
-            linkdir $1/$file $2/$OLDDOT$file
+            linkdir $1/$file $2/$OLDDOT$file "$relpath"
             DOT=$OLDDOT
             continue
         elif test ! -f "$1/$file"; then
@@ -47,15 +99,13 @@ linkdir () {
             if test "$C_MD5SUM" = "$N_MD5SUM"; then
                 rm -f $2/$DOT$file
             else
-                found=0
-                if [ "$found" = "0" ]; then
-                    echo "$2/$DOT$file different from $1/$file, not known ok, and not symlink: skipping"
-                    continue
-                fi
+                echo "$2/$DOT$file different from $1/$file, not known ok, and not symlink: skipping"
+                continue
             fi
         fi
         ln -s $1/$file $2/$DOT$file
     done
 }
+
 DOT=.
-linkdir $DOTFILESDIR $HOME
+linkdir $DOTFILESDIR $HOME ""
