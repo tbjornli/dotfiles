@@ -22,6 +22,7 @@ alias ls="ls $LS_OPTIONS"
 alias lsd="ls $LS_OPTIONS -d */"
 alias lsl="ls $LS_OPTIONS -l"
 alias lslh="ls $LS_OPTIONS -lh"
+alias n="nvim"
 alias open="xdg-open"
 alias rsync="rsync --progress"
 alias safesurf='ssh -D 8080 tomtom@kug.no -p 10022'
