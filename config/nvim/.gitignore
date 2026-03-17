@@ -1,0 +1,23 @@
+# --- Existing entries ---
+tt.*
+.tests
+doc/tags
+debug
+.repro
+foo.*
+*.log
+data
+
+# --- Neovim / LazyVim State (Crucial) ---
+# These store your search history, cursor positions, and undo history.
+# You don't want these in git as they change every time you move the cursor.
+shada/
+undo/
+spell/
+view/
+*.swp
+*.swo
+
+# --- Lazy.nvim specific ---
+# Keeps the local copy of the plugin manager clean
+/lazy-lock.json.bak
