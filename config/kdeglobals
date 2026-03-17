@@ -145,6 +145,7 @@ Theme=breeze-dark
 
 [KDE]
 AnimationDurationFactor=0.25
+SingleClick=false
 contrast=4
 frameContrast=0.2
 widgetStyle=Breeze
