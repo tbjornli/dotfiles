@@ -47,7 +47,7 @@ Grid View=Meta+G,Meta+G,Toggle Grid View
 Increase Opacity=,,Increase Opacity of Active Window by 5%
 Kill Window=Meta+Ctrl+Esc,Meta+Ctrl+Esc,Kill Window
 Move Tablet to Next LogicalOutput=none,none,Move the tablet to the next output
-MoveMouseToCenter=Meta+F6,Meta+F6,Move Mouse to Centre
+MoveMouseToCenter=Meta+F6,Meta+F6,Move Mouse to Center
 MoveMouseToFocus=Meta+F5,Meta+F5,Move Mouse to Focus
 MoveZoomDown=none,none,Move Zoomed Area Downwards
 MoveZoomLeft=none,none,Move Zoomed Area to Left
@@ -126,12 +126,12 @@ Window Fullscreen=,,Make Window Fullscreen
 Window Grow Horizontal=,,Expand Window Horizontally
 Window Grow Vertical=,,Expand Window Vertically
 Window Lower=,,Lower Window
-Window Maximize=Meta+F\tMeta+PgUp,Meta+PgUp,Maximise Window
-Window Maximize Horizontal=,,Maximise Window Horizontally
-Window Maximize Vertical=,,Maximise Window Vertically
-Window Minimize=Meta+PgDown,Meta+PgDown,Minimise Window
+Window Maximize=Meta+F\tMeta+PgUp,Meta+PgUp,Maximize Window
+Window Maximize Horizontal=,,Maximize Window Horizontally
+Window Maximize Vertical=,,Maximize Window Vertically
+Window Minimize=Meta+PgDown,Meta+PgDown,Minimize Window
 Window Move=,,Move Window
-Window Move Center=,,Move Window to the Centre
+Window Move Center=,,Move Window to the Center
 Window No Border=,,Toggle Window Titlebar and Frame
 Window On All Desktops=,,Keep Window on All Desktops
 Window One Desktop Down=Meta+Ctrl+Shift+Down,Meta+Ctrl+Shift+Down,Window One Desktop Down
@@ -217,6 +217,10 @@ seekforwardmedia=Media Fast Forward,Media Fast Forward,Media playback seek forwa
 seekforwardmedialong=,,Media playback seek forward 30s
 stopmedia=Media Stop,Media Stop,Stop media playback
 
+[org.chromium.Chromium]
+0B89D8046EC0896BED7D9663D05DC138-Ctrl+Shift+Space=,none,Electron shortcut Ctrl+Shift+Space
+_k_friendly_name=org.chromium.Chromium
+
 [org_kde_powerdevil]
 Decrease Keyboard Brightness=Keyboard Brightness Down,Keyboard Brightness Down,Decrease Keyboard Brightness
 Decrease Screen Brightness=Monitor Brightness Down,Monitor Brightness Down,Decrease Screen Brightness
@@ -268,9 +272,8 @@ toggle do not disturb=,,Toggle do not disturb
 [services][Alacritty.desktop]
 _launch=Alt+|
 
+[services][net.local.alacritty.desktop]
+_launch=Meta+N
+
 [services][org.kde.krunner.desktop]
 _launch=Alt+F2\tAlt+Space\tSearch\tMeta+Space
-
-[services][org.kde.spectacle.desktop]
-CurrentMonitorScreenShot=
-OpenWithoutScreenshot=
