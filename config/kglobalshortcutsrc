@@ -277,3 +277,7 @@ _launch=Meta+N
 
 [services][org.kde.krunner.desktop]
 _launch=Alt+F2\tAlt+Space\tSearch\tMeta+Space
+
+[services][org.kde.spectacle.desktop]
+CurrentMonitorScreenShot=
+OpenWithoutScreenshot=
