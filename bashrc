@@ -32,8 +32,3 @@ case $TERM in
         export PS1="\u@\h${CHROOT}:\w\$ "
         export PS2=">$";;
 esac
-
-# Base16 Shell
-BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-brewer.sh"
-# shellcheck source=/dev/null
-[[ "$-" == *i* ]] && [[ -s "$BASE16_SHELL" ]] && source "$BASE16_SHELL"
